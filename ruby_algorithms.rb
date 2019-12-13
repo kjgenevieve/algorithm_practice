@@ -109,40 +109,69 @@
         # We are looking for anagrams only; whitespace is important.
         # A != a
 
-    def anagrams?(str1, str2)
-        if str1.length != str2.length
-            puts false
-            return false
-        end
+    # def anagrams?(str1, str2)
+    #     if str1.length != str2.length
+    #         puts false
+    #         return false
+    #     end
 
-        hh1 = Hash.new
-        str1.each_char do |char|
-            if hh1.key?(char)
-                hh1[char] += 1
+    #     hh1 = Hash.new
+    #     str1.each_char do |char|
+    #         if hh1.key?(char)
+    #             hh1[char] += 1
+    #         else
+    #             hh1[char] = 1
+    #         end
+    #     end
+
+    #     hh2 = Hash.new
+    #     str2.each_char do |char|
+    #         if hh2.key?(char)
+    #             hh2[char] += 1
+    #         else
+    #             hh2[char] = 1
+    #         end
+    #     end
+
+    #     if hh1 == hh2
+    #         puts "true"
+    #         return true
+    #     else
+    #         puts "false"
+    #         return false
+    #     end
+    # end
+
+    # ex1 = "boggle"
+    # ex2 = "boggle"
+
+    # anagrams?(ex1, ex2)
+
+
+
+## CtCI 1.3
+    # Write a method to replace all spaces in a string with '%20'.
+    # Example:
+        # Input: "Mr John Smith      "
+        # Output: Mr%20John%20Smith"
+
+    def change_spaces(str)
+        str.strip!
+
+        ary = str.chars
+        # p ary
+        ary.map! do |char|
+            # p char
+            if char == " "
+                char = "%20"
             else
-                hh1[char] = 1
+                char = char
             end
         end
-
-        hh2 = Hash.new
-        str2.each_char do |char|
-            if hh2.key?(char)
-                hh2[char] += 1
-            else
-                hh2[char] = 1
-            end
-        end
-
-        if hh1 == hh2
-            puts "true"
-            return true
-        else
-            puts "false"
-            return false
-        end
+        str = ary.join("")
+        p str
     end
 
-    ex1 = "boggle"
-    ex2 = "boggle"
+    example = "Mr John Smith       "
 
-    anagrams?(ex1, ex2)
+    change_spaces(example)
