@@ -69,28 +69,80 @@
 
 
 ## CtCI 1.1
-    # Implement an algorithm to determine if a string has all unique characters. What if you cannot use additional data structures?
+    # Implement an algorithm to determine if a string has all unique characters.
+        # def uniq_char?(str)
+        #     hh = Hash.new
+
+        #     str.each_char do |char|
+        #         if hh.key?(char)
+        #             puts "false"
+        #             return false
+        #         else
+        #             hh[char] = 1
+        #             puts hh
+        #         end
+        #     end
+
+        #     puts "true"
+        #     return true
+        # end
+
+        # # example = "hi"
+        # # example = "hello"
+        # # example = "abcdefghijklmnopqrstuvwxyz"
+
+        # uniq_char?(example)
+
+    ## Optimizations/Questions
+        # There's a finite number of characters; automatically return fase if str.length > possible # of chars
+        # If the string contains "A" && "a", should it be true or false?
 
 
-def uniq_char?(str)
-    hh = Hash.new
+## CtCI 1.2
+    # Implement a function void reverse(char* str) in C or C++ which reverses a null-terminated string.
 
-    str.each_char do |char|
-        if hh.key?(char)
+    # What?
+
+## CtCI 1.3
+    # Given two strings, write a method to decide if one is a permutation of the other.
+    # Assumptions
+        # We are looking for anagrams only; whitespace is important.
+        # A != a
+
+    def anagrams?(str1, str2)
+        if str1.length != str2.length
+            puts false
+            return false
+        end
+
+        hh1 = Hash.new
+        str1.each_char do |char|
+            if hh1.key?(char)
+                hh1[char] += 1
+            else
+                hh1[char] = 1
+            end
+        end
+
+        hh2 = Hash.new
+        str2.each_char do |char|
+            if hh2.key?(char)
+                hh2[char] += 1
+            else
+                hh2[char] = 1
+            end
+        end
+
+        if hh1 == hh2
+            puts "true"
+            return true
+        else
             puts "false"
             return false
-        else
-            hh[char] = 1
-            puts hh
         end
     end
 
-    puts "true"
-    return true
-end
+    ex1 = "boggle"
+    ex2 = "boggle"
 
-# example = "hi"
-# example = "hello"
-# example = "abcdefghijklmnopqrstuvwxyz"
-
-uniq_char?(example)
+    anagrams?(ex1, ex2)
