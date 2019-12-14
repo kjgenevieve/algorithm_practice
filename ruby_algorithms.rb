@@ -78,8 +78,8 @@
         #             puts "false"
         #             return false
         #         else
-        #             hh[char] = 1
-        #             puts hh
+        #             hh[char] = true
+        #             # puts hh
         #         end
         #     end
 
@@ -87,9 +87,23 @@
         #     return true
         # end
 
-        # # example = "hi"
-        # # example = "hello"
-        # # example = "abcdefghijklmnopqrstuvwxyz"
+        # def uniq_char?(str)
+        #     # pseudocode:
+        #         str = str.to_arry.sort!
+        #         i = 0
+        #         for i in 0...str.length - 1 #(make sure that's inclusive!)
+        #             if str[i] == str[i + 1]
+        #                 return false
+        #             else
+        #                 i += 1
+        #             end
+        #         end
+        #         return true
+        # end
+
+        # example = "hi"
+        # example = "hello"
+        # example = "abcdefghijklmnopqrstuvwxyz"
 
         # uniq_char?(example)
 
@@ -111,67 +125,126 @@
 
     # def anagrams?(str1, str2)
     #     if str1.length != str2.length
-    #         puts false
+    #         puts "false 128"
     #         return false
     #     end
 
-    #     hh1 = Hash.new
+    #     hh = Hash.new
     #     str1.each_char do |char|
-    #         if hh1.key?(char)
-    #             hh1[char] += 1
+    #         if hh.key?(char)
+    #             hh[char] += 1
     #         else
-    #             hh1[char] = 1
+    #             hh[char] = 1
     #         end
     #     end
 
-    #     hh2 = Hash.new
     #     str2.each_char do |char|
-    #         if hh2.key?(char)
-    #             hh2[char] += 1
+    #         if hh.key?(char) && hh[char] < 1
+    #             hh[char] -= 1
     #         else
-    #             hh2[char] = 1
+    #             puts "false 149"
+    #             return false
     #         end
     #     end
+    #     puts "true"
+    #     return true
+    # end
 
-    #     if hh1 == hh2
-    #         puts "true"
-    #         return true
-    #     else
-    #         puts "false"
-    #         return false
-    #     end
+        # hh2 = Hash.new
+        # str2.each_char do |char|
+        #     if hh2.key?(char)
+        #         hh2[char] += 1
+        #     else
+        #         hh2[char] = 1
+        #     end
+        # end
+
+        # if hh1 == hh2
+        #     puts "true"
+        #     return true
+        # else
+        #     puts "false"
+        #     return false
+        # end
     # end
 
     # ex1 = "boggle"
-    # ex2 = "boggle"
+    # ex2 = "bogglb"
 
     # anagrams?(ex1, ex2)
 
 
 
-## CtCI 1.3
+## CtCI 1.4
     # Write a method to replace all spaces in a string with '%20'.
     # Example:
         # Input: "Mr John Smith      "
         # Output: Mr%20John%20Smith"
 
-    def change_spaces(str)
-        str.strip!
+    # def change_spaces(str)
+    #     str.strip!
+    #     ary = str.chars
+        
+    #     ary.map! do |elem|
+    #         if elem == " "
+    #             elem = "%20"
+    #         else
+    #             elem = elem
+    #         end
+    #     end
+    #     str = ary.join("")
+    #     p str
+    # end
 
-        ary = str.chars
-        # p ary
-        ary.map! do |char|
-            # p char
-            if char == " "
-                char = "%20"
+    # example = "Mr John Smith       "
+
+    # change_spaces(example)
+
+
+## CtCI 1.5
+    # Implement a method to perform basic string compression using the counts of repeated chars.
+    # For example:
+        # "aabcccccaaa" => "a2b1c5a3"
+    # If the output isn't smaller than input, return input.
+
+    # Assumptions:
+        # "smaller" means "shorter"
+
+
+    def compress(str)
+        ary = str.split("")
+        i = 0
+        j = 1
+        result = ""
+
+        while i < ary.length
+            if result.length >= str.length
+                p str
+                return str
+            end
+
+            if j >= ary.length
+                result << ary[i] << (j - i).to_s
+                if result.length >= str.length
+                    p str
+                    return str
+                end
+                
+                p result
+                return result
+            end
+            
+            if ary[i] == ary[j]
+                j += 1
             else
-                char = char
+                result << ary[i] << (j - i).to_s
+                i = j
+                j = i + 1
             end
         end
-        str = ary.join("")
-        p str
     end
 
-    example = "Mr John Smith       "
+    example = "aabcccccaad"
+    # example = "abcd"
 
-    change_spaces(example)
+    compress(example)
